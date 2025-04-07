@@ -91,29 +91,8 @@ def build_arch(ndk_abi, dest_abi_code, install_folder: Path):
      cmake -D CMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_HOME/build/cmake/android-legacy.toolchain.cmake -DCMAKE_INSTALL_PREFIX="{dest_folder}"\
     -DCMAKE_BUILD_TYPE=Release -DANDROID_NDK=$ANDROID_NDK_HOME -DANDROID_ABI="{dest_abi_code.split('.')[1]}" -Dprotobuf_BUILD_TESTS=OFF\
      -Dprotobuf_BUILD_SHARED_LIBS=OFF -Dprotobuf_BUILD_PROTOC_BINARIES=OFF -Dprotobuf_FORCE_FETCH_DEPENDENCIES=ON "{cwd}"\
-      -Dprotobuf_INSTALL=ON -G Ninja; ninja install; 
-"""
-# old_str = f"""PREFIX="{dest_folder}"
-#
-# export PREFIX
-#
-# export PATH=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/{ndk_abi}/bin:$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH
-#
-# export SYSROOT=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/sysroot
-# export CC="{ndk_abi}{__sdk_version}-clang --sysroot $SYSROOT"
-# export CXX="{ndk_abi}{__sdk_version}-clang++ --sysroot $SYSROOT"
-#
-# {cwd.resolve()}/configure \
-# --prefix="$PREFIX" \
-# --host={ndk_abi} \
-# --with-sysroot="$SYSROOT" \
-# {__package_specific_configure_options}
-#
-# make -j {multiprocessing.cpu_count()}
-#
-# make install
-# make clean
-# """
+      -Dprotobuf_INSTALL=ON -G Ninja; ninja install; """
+      
     os.system(exec_str)
     remove_absl_utf8(dest_folder)
     os.chdir(cwd)
