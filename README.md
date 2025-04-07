@@ -1,6 +1,9 @@
 # make_prefab_aar
 A script for creating AAR files to hold ndk C/C++ libraries in prefabs for Android development
 
+# 2025 update
+This script no longer works for the protobuf lib because it has moved from autotools to CMake. AAR generation using CMake is best done using CMake and gradle but this script remains useful for libraries that still use autotools with a configure script. The protobuf lib does not come with scripts to build an AAR I assume the expectation is that protobufs on Android use JVM based languages. I may update this script in the future if I want to use the protobuf lib with C/C++ code and the ndk but for now it exists mainly as an example for libraries that use autotools.
+
 # make_protobuf-aar.py
 
 While this file is specific to [the protobuf library](https://github.com/protocolbuffers/protobuf) it is meant to also be a template for making similar scripts for other projects. You have to specify some metadata at the top of the file and write a function to determine the version of the project you're compiling (this function could just return a constant if you want to manually set that value of course,) then the script should generate a working AAR with libraries for all 4 of the currently supported Android architectures. It will automatically detect static libraries and name them with -static appended. For example libprotobuf.so will be protobuf::protobuf libprotobuf.a will be protobuf::protobuf-static. 
